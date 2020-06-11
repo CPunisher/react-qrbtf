@@ -1,5 +1,8 @@
 # [React Qrbtf](https://github.com/CPunisher/react-qrbtf)
 
+[![Npm Version][npm-version-image]][npm-version-url]
+[![License][license-image]][license-url]
+
 - **6 Different QRCode Styles** - Change the parameters to show your favourite 
 
 - **Make Your Own** - Use the API to make your own QRCode styles
@@ -35,3 +38,8 @@ class Component extends React.Component {
     }
 }
 ```
+
+[npm-version-image]: https://img.shields.io/npm/v/react-qrbtf
+[npm-version-url]: https://www.npmjs.com/package/react-qrbtf
+[license-image]: http://img.shields.io/npm/l/react-qrbtf.svg
+[license-url]: LICENSE
