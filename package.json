@@ -6,10 +6,13 @@
   "license": "MIT",
   "bugs": "https://github.com/CPunisher/react-qrbtf/issues",
   "homepage": "https://qrbtf.com/",
-  "keywords": ["react", "qrcode"],
-  "private": true,
+  "keywords": [
+    "react",
+    "qrcode"
+  ],
+  "main": "lib/index.tsx",
   "repository": {
-	"type": "git",
+    "type": "git",
     "url": "https://github.com/CPunisher/react-qrbtf.git"
   },
   "dependencies": {
@@ -21,10 +24,14 @@
     "reactcss": "^1.2.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "npm run jest && npm run eslint",
+    "lib": "npm run clean && babel src -d lib",
+    "clean": "rm -rf lib && mkdir lib",
+    "docs": "npm run docs-server",
+    "docs-server": "node ./scripts/docs-server",
+    "docs-dist": "node ./scripts/docs-dist",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -c .storybook -o .out"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,9 +53,10 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/lodash": "^4.14.155",
-    "@types/reactcss": "^1.2.3",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
+    "@types/reactcss": "^1.2.3",
+    "babel-cli": "^6.26.0",
     "prop-types": "^15.7.2",
     "typescript": "^3.9.5"
   }
