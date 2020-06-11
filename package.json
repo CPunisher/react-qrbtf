@@ -10,7 +10,8 @@
     "react",
     "qrcode"
   ],
-  "main": "lib/index.tsx",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/CPunisher/react-qrbtf.git"
@@ -24,14 +25,8 @@
     "reactcss": "^1.2.3"
   },
   "scripts": {
-    "test": "npm run jest && npm run eslint",
-    "lib": "npm run clean && babel src -d lib",
-    "clean": "rm -rf lib && mkdir lib",
-    "docs": "npm run docs-server",
-    "docs-server": "node ./scripts/docs-server",
-    "docs-dist": "node ./scripts/docs-dist",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -c .storybook -o .out"
+    "build": "tsc",
+    "prepare": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,7 +51,6 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/reactcss": "^1.2.3",
-    "babel-cli": "^6.26.0",
     "prop-types": "^15.7.2",
     "typescript": "^3.9.5"
   }

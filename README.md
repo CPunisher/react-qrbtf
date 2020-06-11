@@ -1,4 +1,4 @@
-# [React Color](https://github.com/CPunisher/react-qrbtf)
+# [React Qrbtf](https://github.com/CPunisher/react-qrbtf)
 * **6 Different QRCode Styles** - Change the parameters to show your favourite 
 
 * **Make Your Own** - Use the API to make your own QRCode styles
