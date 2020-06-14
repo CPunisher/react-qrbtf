@@ -30,5 +30,9 @@ module.exports = {
             use: 'awesome-typescript-loader',
             exclude: /node_modules/,
         }]
+    },
+    externals: {
+        react: 'react',
+        'react-dom': 'react-dom'
     }
 }
