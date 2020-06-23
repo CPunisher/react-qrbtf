@@ -9,9 +9,7 @@
 
 ## Demo
 
-![QR codes](https://blog.ciaochaos.com/projects/qrcode/qrs2.jpg)
-
-![QR code style C2](https://blog.ciaochaos.com/projects/qrcode/qrc2.jpg)
+![QR codes](https://github.com/ciaochaos/qrbtf/raw/master/public/img/QRcodes.jpg)
 
 [**Live Demo**](https://qrbtf.com)
 
@@ -23,7 +21,7 @@ npm install react-qrbtf --save
 
 ### Docs
 
-[Read docs here]() (not yet completed)
+[Read docs here](http://cpunisher.github.io/react-qrbtf/) (not yet completed)
 
 ### Include the Componet
 
