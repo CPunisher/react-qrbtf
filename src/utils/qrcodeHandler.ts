@@ -11,14 +11,16 @@ export var QRPointType = {
     VERSION: 7
 }
 
-interface IOptions {
+export interface IOptions {
     text: string,
-    typeNumber: number,
-    correctLevel: number,
+    typeNumber?: number,
+    correctLevel?: number,
 }
 
 export function encodeData(options: IOptions) {
     if (!options.text || options.text.length <= 0) return undefined;
+    if (!options.typeNumber) options.typeNumber = -1;
+    if (!options.correctLevel) options.correctLevel = 1;
 
     let qrcode = new QRCode(options.typeNumber, options.correctLevel)
     qrcode.addData(options.text)
