@@ -14,15 +14,23 @@ export var QRPointType = {
 export interface IOptions {
     text: string,
     typeNumber?: number,
-    correctLevel?: number,
+    correctLevel?: string,
+}
+
+export function getLevelNumber(level: string) {
+    if (level === 'L') return 1;
+    else if (level === 'M') return 0;
+    else if (level === 'Q') return 3;
+    else if (level === 'H') return 2;
+    return 0;
 }
 
 export function encodeData(options: IOptions) {
     if (!options.text || options.text.length <= 0) return undefined;
     if (!options.typeNumber) options.typeNumber = -1;
-    if (!options.correctLevel) options.correctLevel = 1;
+    if (!options.correctLevel) options.correctLevel = 'M';
 
-    let qrcode = new QRCode(options.typeNumber, options.correctLevel)
+    let qrcode = new QRCode(options.typeNumber, getLevelNumber(options.correctLevel))
     qrcode.addData(options.text)
     qrcode.make()
 

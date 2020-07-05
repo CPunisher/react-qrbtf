@@ -8,7 +8,8 @@ export interface RendererProps {
     qrcode?: QRCode,
     className?: string,
     value?: string,
-    styles?: any
+    level?: string,
+    styles?: any,
 };
 
 export type SFC<P = {}> = StyledFunctionComponent<P>;
@@ -22,7 +23,8 @@ export const RendererWrapper = <T extends RendererProps>(renderer: SFC<T>) => {
         let newProps: T = Object.assign({}, props);
 
         newProps.value = newProps.value || "https://qrbtf.com";
-        newProps.qrcode = newProps.qrcode || encodeData({ text: newProps.value, correctLevel: 1, typeNumber: -1 });
+        newProps.level = newProps.level || 'M'
+        newProps.qrcode = newProps.qrcode || encodeData({ text: newProps.value, correctLevel: newProps.level, typeNumber: -1 });
         newProps.styles = reactCSS(merge({
             'default': renderer.defaultCSS
         }, {
