@@ -1,7 +1,7 @@
 import React from 'react';
 import {rand, defaultViewBox} from '../utils/helper';
 import { getTypeTable, QRPointType } from '../utils/qrcodeHandler';
-import {RendererWrapper, RendererProps, SFC} from './RendererWrapper';
+import {RendererWrapper, RendererProps, SFC, drawIcon} from './RendererWrapper';
 
 enum Type {
     Rect = 'rect',
@@ -31,6 +31,7 @@ const QRNormal: SFC<QRNormalProps> = (props) => {
         <svg className={className} style={styles.svg} width="100%" height="100%" viewBox={defaultViewBox(qrcode)} fill="white"
         xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {listPoints(props)}
+            {drawIcon(props)}
         </svg>
     );
 }
