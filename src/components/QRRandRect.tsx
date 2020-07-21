@@ -1,6 +1,6 @@
 import React from 'react';
 import {rand, defaultViewBox} from '../utils/helper';
-import {RendererWrapper, RendererProps, SFC} from './RendererWrapper';
+import {RendererWrapper, RendererProps, SFC, drawIcon} from './RendererWrapper';
 
 interface QRRandRectProps extends RendererProps {
 }
@@ -11,6 +11,7 @@ const QRRandRect: SFC<QRRandRectProps> = (props) => {
         <svg className={className} style={styles.svg} width="100%" height="100%" viewBox={defaultViewBox(qrcode)} fill="white"
              xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {listPoints(props)}
+            {drawIcon(props)}
         </svg>
     );
 }
