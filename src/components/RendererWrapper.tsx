@@ -11,8 +11,11 @@ export interface RendererProps {
     level?: string,
     styles?: any,
     title?: string,
+    titleSize?: number,
     titleColor?: string,
+    titleAlign?: string,
     icon?: string,
+    iconScale?: number,
 };
 
 export type SFC<P = {}> = StyledFunctionComponent<P>;
@@ -28,7 +31,6 @@ export const RendererWrapper = <T extends RendererProps>(renderer: SFC<T>) => {
         newProps.value = newProps.value || "https://qrbtf.com";
         newProps.level = newProps.title || newProps.icon ? "H" : newProps.level || 'M'
         newProps.qrcode = newProps.qrcode || encodeData({ text: newProps.value, correctLevel: newProps.level, typeNumber: -1 });
-        newProps.titleColor = newProps.titleColor || "#000000";
         newProps.styles = reactCSS(merge({
             'default': renderer.defaultCSS
         }, {
@@ -42,25 +44,37 @@ export const RendererWrapper = <T extends RendererProps>(renderer: SFC<T>) => {
     return Renderer;
 }
 
-export function drawIcon({ qrcode, title, titleColor, icon }: RendererProps) {
+export function drawIcon({ qrcode, title, titleSize, titleColor, titleAlign, icon, iconScale = .33, styles }: RendererProps) {
     if (!qrcode) return []
     if (!title && !icon) return null;
 
     const nCount = qrcode.getModuleCount();
-    const width = Number((nCount + nCount / 5 * 2) * .3);
-    const pos = (nCount - width) / 2;
-    const fontSize = nCount / 10;
+    const { fontSize, color, verticalAlign, ...titleStyle } = styles.title || {};
+    const titleVerticalAlign = titleAlign || verticalAlign || (icon ? "bottom" : "middle");
 
-    const pointList = [
-        <rect width={width} height={width} rx="2" ry="2" fill="#FFFFFF" x={pos} y={pos} />
-    ];
-    if (icon) {
-        pointList.push(<image xlinkHref={icon} width={width - 4} x={pos + 2} y={pos + 2} />);
+    iconScale = iconScale > .33 ? .33 : iconScale;
+    const iconSize = Number(nCount * iconScale);
+    const iconXY = (nCount - iconSize) / 2;
+
+    const pointList = [];
+    if (icon || titleVerticalAlign === "middle") {
+        pointList.push(<rect width={iconSize} height={iconSize} rx="2" ry="2" fill="#FFFFFF" x={iconXY} y={iconXY} />);
     }
 
-    if(title) {
-        const fontY = icon ? pos + width - fontSize * .5 : nCount / 2 - fontSize * .5;
-        pointList.push(<text x={nCount / 2} y={fontY} fill={titleColor} style={{ fontSize: fontSize }} textAnchor="middle">{title}</text>)
+    if (icon) {
+        pointList.push(<image xlinkHref={icon} width={iconSize - 2} x={iconXY + 1} y={iconXY + 1} />);
+    }
+
+    if (title) {
+        const svgWidth = styles.svg && styles.svg.width ? styles.svg.width.replace("px", "") : 300;
+        const titleFontSize = Number(nCount + nCount / 5 * 2) * (titleSize || fontSize || 12) / svgWidth;
+        const titleFontColor = titleColor || color || "#000000";
+
+        const fontY = titleVerticalAlign === "middle" 
+            ? (icon ? (iconXY + iconSize) : (nCount / 2 + titleFontSize * .5))
+            : Number(nCount + nCount / 5) - titleFontSize * .5;
+
+        pointList.push(<text x={nCount / 2} y={fontY} fill={titleFontColor} style={{ ...titleStyle, fontSize: titleFontSize }} textAnchor="middle">{title}</text>)
     }
 
     return pointList;
