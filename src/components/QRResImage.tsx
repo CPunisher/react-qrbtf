@@ -1,7 +1,6 @@
 import React, {useMemo, useState} from 'react';
 import { getTypeTable, QRPointType } from '../utils/qrcodeHandler';
 import {RendererWrapper, RendererProps, SFC} from './RendererWrapper';
-import {defaultResImage} from "../static/ImageData";
 import QRCode from "../utils/qrcode";
 import {gamma} from "../utils/helper";
 
@@ -54,6 +53,11 @@ function getGrayPointList({ image, contrast, exposure }: QRResImageProps, size: 
     size *= 3;
 
     img.src = image!;
+    /**
+     * 使用 crossOrigin 属性可以让 canvas 支持绘制非当前域名下的图片，比如 CDN 上的图片资源
+     * ios 10.2 版本对本地图片资源不允许使用 crossOrigin 属性，因此需要使用以下兼容代码
+     */
+    if (image && /^http(s)?:\/\//.test(image)) img.crossOrigin = 'anonymous'
     contrast = contrast! / 100;
     exposure = exposure! / 100;
     return new Promise<typeof gpl>(resolve => {
@@ -155,7 +159,7 @@ QRResImage.defaultCSS = {
 }
 
 QRResImage.defaultProps =  {
-    image: defaultResImage,
+    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
     contrast: 0,
     exposure: 0,
     alignType: Type.None,

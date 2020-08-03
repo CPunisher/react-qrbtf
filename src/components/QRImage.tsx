@@ -2,7 +2,6 @@ import React from 'react';
 import {rand, defaultViewBox} from '../utils/helper';
 import { getTypeTable, QRPointType } from '../utils/qrcodeHandler';
 import {RendererWrapper, RendererProps, SFC} from './RendererWrapper';
-import {defaultImage} from "../static/ImageData";
 
 enum Type {
     Rect = 'rect',
@@ -137,7 +136,7 @@ QRImage.defaultCSS = {
 }
 
 QRImage.defaultProps =  {
-    image: defaultImage,
+    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
     type: Type.Rect,
     size: 100,
     opacity: 100,
