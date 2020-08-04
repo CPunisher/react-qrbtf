@@ -1,6 +1,6 @@
 import React from 'react';
 import { getTypeTable, QRPointType } from '../utils/qrcodeHandler';
-import {RendererWrapper, RendererProps, SFC} from './RendererWrapper';
+import { RendererWrapper, RendererProps, SFC } from './RendererWrapper';
 import QRCode from "../utils/qrcode";
 
 interface QR25DProps extends RendererProps {
@@ -15,7 +15,7 @@ const QR25D: SFC<QR25DProps> = (props) => {
     const { qrcode, className, styles } = props;
     return (
         <svg className={className} style={styles.svg} width="100%" height="100%" viewBox={getViewBox(qrcode)} fill="white"
-             xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {listPoints(props)}
         </svg>
     );
@@ -45,8 +45,8 @@ function listPoints({ qrcode, height, posHeight, topColor, leftColor, rightColor
 
     let id = 0;
 
-    const X = [-Math.sqrt(3)/2, 1/2];
-    const Y = [ Math.sqrt(3)/2, 1/2];
+    const X = [-Math.sqrt(3) / 2, 1 / 2];
+    const Y = [Math.sqrt(3) / 2, 1 / 2];
     const Z = [0, 0];
 
     const matrixString = 'matrix(' + String(X[0]) + ', ' + String(X[1]) + ', ' + String(Y[0]) + ', ' + String(Y[1]) + ', ' + String(Z[0]) + ', ' + String(Z[1]) + ')'
@@ -56,16 +56,16 @@ function listPoints({ qrcode, height, posHeight, topColor, leftColor, rightColor
 
     for (let x = 0; x < nCount; x++) {
         for (let y = 0; y < nCount; y++) {
-            if (qrcode.isDark(x, y) == false) continue;
-            else if (typeTable[x][y] == QRPointType.POS_OTHER || typeTable[x][y] == QRPointType.POS_CENTER) {
-                pointList.push(<rect width={size2} height={size2} key={id++} fill={topColor} x={x + (1 - size2)/2} y={y + (1 - size2)/2} transform={matrixString}/>);
-                pointList.push(<rect width={posHeight} height={size2} key={id++} fill={leftColor} x={0} y={0} transform={matrixString+'translate('+String(x + (1 - size2)/2 + size2)+','+String(y + (1 - size2)/2)+') '+'skewY(45) '}/>);
-                pointList.push(<rect width={size2} height={posHeight} key={id++} fill={rightColor} x={0} y={0} transform={matrixString+'translate('+String(x + (1 - size2)/2)+','+String(y + size2 + (1 - size2)/2)+') '+'skewX(45) '}/>);
+            if (qrcode.isDark(x, y) === false) continue;
+            else if (typeTable[x][y] === QRPointType.POS_OTHER || typeTable[x][y] === QRPointType.POS_CENTER) {
+                pointList.push(<rect width={size2} height={size2} key={id++} fill={topColor} x={x + (1 - size2) / 2} y={y + (1 - size2) / 2} transform={matrixString} />);
+                pointList.push(<rect width={posHeight} height={size2} key={id++} fill={leftColor} x={0} y={0} transform={matrixString + 'translate(' + String(x + (1 - size2) / 2 + size2) + ',' + String(y + (1 - size2) / 2) + ') skewY(45) '} />);
+                pointList.push(<rect width={size2} height={posHeight} key={id++} fill={rightColor} x={0} y={0} transform={matrixString + 'translate(' + String(x + (1 - size2) / 2) + ',' + String(y + size2 + (1 - size2) / 2) + ') skewX(45) '} />);
             }
             else {
-                pointList.push(<rect width={size} height={size} key={id++} fill={topColor} x={x + (1 - size)/2} y={y + (1 - size)/2} transform={matrixString}/>);
-                pointList.push(<rect width={height} height={size} key={id++} fill={leftColor} x={0} y={0} transform={matrixString+'translate('+String(x + (1 - size)/2 + size)+','+String(y + (1 - size)/2)+') '+'skewY(45) '}/>);
-                pointList.push(<rect width={size} height={height} key={id++} fill={rightColor} x={0} y={0} transform={matrixString+'translate('+String(x + (1 - size)/2)+','+String(y + size + (1 - size)/2)+') '+'skewX(45) '}/>);
+                pointList.push(<rect width={size} height={size} key={id++} fill={topColor} x={x + (1 - size) / 2} y={y + (1 - size) / 2} transform={matrixString} />);
+                pointList.push(<rect width={height} height={size} key={id++} fill={leftColor} x={0} y={0} transform={matrixString + 'translate(' + String(x + (1 - size) / 2 + size) + ',' + String(y + (1 - size) / 2) + ') skewY(45) '} />);
+                pointList.push(<rect width={size} height={height} key={id++} fill={rightColor} x={0} y={0} transform={matrixString + 'translate(' + String(x + (1 - size) / 2) + ',' + String(y + size + (1 - size) / 2) + ') skewX(45) '} />);
             }
         }
     }

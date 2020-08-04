@@ -1,7 +1,7 @@
 import React from 'react';
-import {rand, defaultViewBox} from '../utils/helper';
+import { defaultViewBox } from '../utils/helper';
 import { getTypeTable, QRPointType } from '../utils/qrcodeHandler';
-import {RendererWrapper, RendererProps, SFC, drawIcon} from './RendererWrapper';
+import { RendererWrapper, RendererProps, SFC, drawIcon } from './RendererWrapper';
 
 enum Type {
     Rect = 'rect',
@@ -19,7 +19,7 @@ const QRDsj: SFC<QRDsjProps> = (props) => {
     const { qrcode, className, styles } = props;
     return (
         <svg className={className} style={styles.svg} width="100%" height="100%" viewBox={defaultViewBox(qrcode)} fill="white"
-             xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {listPoints(props)}
             {drawIcon(props)}
         </svg>
@@ -27,7 +27,7 @@ const QRDsj: SFC<QRDsjProps> = (props) => {
 }
 
 
-function listPoints({ qrcode, scale, crossWidth, posWidth, posType}: QRDsjProps) {
+function listPoints({ qrcode, scale, crossWidth, posWidth, posType }: QRDsjProps) {
     if (!qrcode) return []
 
     const nCount = qrcode.getModuleCount();
@@ -56,26 +56,26 @@ function listPoints({ qrcode, scale, crossWidth, posWidth, posType}: QRDsjProps)
 
     for (let y = 0; y < nCount; y++) {
         for (let x = 0; x < nCount; x++) {
-            if (qrcode.isDark(x, y) == false) continue;
+            if (qrcode.isDark(x, y) === false) continue;
 
-            else if (typeTable[x][y] == QRPointType.POS_CENTER) {
-                if (posType == Type.Rect) {
-                    pointList.push(<rect width={1} height={1} key={id++} fill="#0B2D97" x={x} y={y}/>);
-                } else if (posType == Type.Dsj) {
-                    pointList.push(<rect width={3 - (1 - posWidth)} height={3 - (1 - posWidth)} key={id++} fill="#0B2D97" x={x - 1 + (1 - posWidth)/2} y={y - 1 + (1 - posWidth)/2}/>);
-                    pointList.push(<rect width={posWidth} height={3 - (1 - posWidth)} key={id++} fill="#0B2D97" x={x - 3 + (1 - posWidth)/2} y={y - 1 + (1 - posWidth)/2}/>);
-                    pointList.push(<rect width={posWidth} height={3 - (1 - posWidth)} key={id++} fill="#0B2D97" x={x + 3 + (1 - posWidth)/2} y={y - 1 + (1 - posWidth)/2}/>);
-                    pointList.push(<rect width={3 - (1 - posWidth)} height={posWidth} key={id++} fill="#0B2D97" x={x - 1 + (1 - posWidth)/2} y={y - 3 + (1 - posWidth)/2}/>);
-                    pointList.push(<rect width={3 - (1 - posWidth)} height={posWidth} key={id++} fill="#0B2D97" x={x - 1 + (1 - posWidth)/2} y={y + 3 + (1 - posWidth)/2}/>);
+            else if (typeTable[x][y] === QRPointType.POS_CENTER) {
+                if (posType === Type.Rect) {
+                    pointList.push(<rect width={1} height={1} key={id++} fill="#0B2D97" x={x} y={y} />);
+                } else if (posType === Type.Dsj) {
+                    pointList.push(<rect width={3 - (1 - posWidth)} height={3 - (1 - posWidth)} key={id++} fill="#0B2D97" x={x - 1 + (1 - posWidth) / 2} y={y - 1 + (1 - posWidth) / 2} />);
+                    pointList.push(<rect width={posWidth} height={3 - (1 - posWidth)} key={id++} fill="#0B2D97" x={x - 3 + (1 - posWidth) / 2} y={y - 1 + (1 - posWidth) / 2} />);
+                    pointList.push(<rect width={posWidth} height={3 - (1 - posWidth)} key={id++} fill="#0B2D97" x={x + 3 + (1 - posWidth) / 2} y={y - 1 + (1 - posWidth) / 2} />);
+                    pointList.push(<rect width={3 - (1 - posWidth)} height={posWidth} key={id++} fill="#0B2D97" x={x - 1 + (1 - posWidth) / 2} y={y - 3 + (1 - posWidth) / 2} />);
+                    pointList.push(<rect width={3 - (1 - posWidth)} height={posWidth} key={id++} fill="#0B2D97" x={x - 1 + (1 - posWidth) / 2} y={y + 3 + (1 - posWidth) / 2} />);
                 }
             }
-            else if (typeTable[x][y] == QRPointType.POS_OTHER) {
-                if (posType == Type.Rect) {
-                    pointList.push(<rect width={1} height={1} key={id++} fill="#0B2D97" x={x} y={y}/>);
+            else if (typeTable[x][y] === QRPointType.POS_OTHER) {
+                if (posType === Type.Rect) {
+                    pointList.push(<rect width={1} height={1} key={id++} fill="#0B2D97" x={x} y={y} />);
                 }
             }
             else {
-                if (available[x][y] && available2[x][y]  && x < nCount - 2 && y < nCount - 2) {
+                if (available[x][y] && available2[x][y] && x < nCount - 2 && y < nCount - 2) {
                     let ctn = true;
                     for (let i = 0; i < 3; i++) {
                         for (let j = 0; j < 3; j++) {
@@ -136,8 +136,8 @@ function listPoints({ qrcode, scale, crossWidth, posWidth, posType}: QRDsjProps)
                                 available2[x][i] = false;
                                 available[x][i] = false;
                             }
-                            g2.push(<rect width={scale} height={end - start - 1 - (1 - scale)} key={id++} fill="#E02020" x={x + (1 - scale)/2} y={y + (1 - scale)/2}/>)
-                            g2.push(<rect width={scale} height={scale} key={id++} fill="#E02020" x={x + (1 - scale)/2} y={end - 1 + (1 - scale)/2}/>)
+                            g2.push(<rect width={scale} height={end - start - 1 - (1 - scale)} key={id++} fill="#E02020" x={x + (1 - scale) / 2} y={y + (1 - scale) / 2} />)
+                            g2.push(<rect width={scale} height={scale} key={id++} fill="#E02020" x={x + (1 - scale) / 2} y={end - 1 + (1 - scale) / 2} />)
                         }
                     }
                 }
@@ -158,12 +158,12 @@ function listPoints({ qrcode, scale, crossWidth, posWidth, posType}: QRDsjProps)
                                 available2[i][y] = false;
                                 available[i][y] = false;
                             }
-                            g2.push(<rect width={end - start - (1 - scale)} height={scale} key={id++} fill="#F6B506" x={x + (1 - scale)/2} y={y + (1 - scale)/2}/>)
+                            g2.push(<rect width={end - start - (1 - scale)} height={scale} key={id++} fill="#F6B506" x={x + (1 - scale) / 2} y={y + (1 - scale) / 2} />)
                         }
                     }
                 }
                 if (available[x][y]) {
-                    pointList.push(<rect width={scale} height={scale} key={id++} fill="#F6B506" x={x + (1 - scale)/2} y={y + (1 - scale)/2}/>)
+                    pointList.push(<rect width={scale} height={scale} key={id++} fill="#F6B506" x={x + (1 - scale) / 2} y={y + (1 - scale) / 2} />)
                 }
 
 
@@ -186,7 +186,7 @@ QRDsj.defaultCSS = {
     }
 }
 
-QRDsj.defaultProps =  {
+QRDsj.defaultProps = {
     scale: 70,
     crossWidth: 70,
     posWidth: 90,
