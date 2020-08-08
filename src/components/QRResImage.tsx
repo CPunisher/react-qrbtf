@@ -1,8 +1,8 @@
-import React, {useMemo, useState} from 'react';
+import React, { useMemo, useState } from 'react';
 import { getTypeTable, QRPointType } from '../utils/qrcodeHandler';
-import {RendererWrapper, RendererProps, SFC} from './RendererWrapper';
+import { RendererWrapper, RendererProps, SFC } from './RendererWrapper';
 import QRCode from "../utils/qrcode";
-import {gamma} from "../utils/helper";
+import { gamma } from "../utils/helper";
 
 enum Type {
     None = 'none',
@@ -26,18 +26,18 @@ const QRResImage: SFC<QRResImageProps> = (props) => {
     const [gpl, setGPL] = useState<Array<JSX.Element>>([]);
     useMemo(() => {
         getGrayPointList(props, qrcode!.getModuleCount(), "#S-black", "#S-white").then(res => setGPL(res));
-    }, [setGPL, props.image, props.contrast, props.exposure, qrcode])
+    }, [setGPL, props, qrcode])
 
     return (
         <svg className={className} style={styles.svg} width="100%" height="100%" viewBox={getViewBox(qrcode)} fill="white"
-             xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <defs>
-                <rect id="B-black" fill={otherColor} width={3.08} height={3.08}/>
-                <rect id="B-white" fill="white" width={3.08} height={3.08}/>
-                <rect id="S-black" fill={otherColor} width={1.02} height={1.02}/>
-                <rect id="S-white" fill="white" width={1.02} height={1.02}/>
-                <rect id="B" width={3.08} height={3.08}/>
-                <rect id="S" width={1.02} height={1.02}/>
+                <rect id="B-black" fill={otherColor} width={3.08} height={3.08} />
+                <rect id="B-white" fill="white" width={3.08} height={3.08} />
+                <rect id="S-black" fill={otherColor} width={1.02} height={1.02} />
+                <rect id="S-white" fill="white" width={1.02} height={1.02} />
+                <rect id="B" width={3.08} height={3.08} />
+                <rect id="S" width={1.02} height={1.02} />
             </defs>
             {gpl.concat(listPoints(props))}
         </svg>
@@ -73,7 +73,7 @@ function getGrayPointList({ image, contrast, exposure }: QRResImageProps, size: 
                         let data = imageData.data;
                         let gray = gamma(data[0], data[1], data[2]);
 
-                        if (Math.random() > ((gray / 255) + exposure! - 0.5) * (contrast! + 1) + 0.5 && ( x % 3 !== 1 || y % 3 !== 1 ))
+                        if (Math.random() > ((gray / 255) + exposure! - 0.5) * (contrast! + 1) + 0.5 && (x % 3 !== 1 || y % 3 !== 1))
                             gpl.push(<use key={"g_" + x + "_" + y} x={x} y={y} xlinkHref={black} />);
                     }
                 }
@@ -104,47 +104,47 @@ function listPoints({ qrcode, alignType, timingType, posColor }: QRResImageProps
     for (let x = 0; x < nCount; x++) {
         for (let y = 0; y < nCount; y++) {
             const posX = 3 * x, posY = 3 * y;
-            if (typeTable[x][y] == QRPointType.ALIGN_CENTER || typeTable[x][y] == QRPointType.ALIGN_OTHER) {
+            if (typeTable[x][y] === QRPointType.ALIGN_CENTER || typeTable[x][y] === QRPointType.ALIGN_OTHER) {
                 if (qrcode.isDark(x, y)) {
                     if (alignType === Type.Bw) {
-                        pointList.push(<use key={id++} xlinkHref="#B-black" x={posX - 0.03} y={posY - 0.03}/>)
+                        pointList.push(<use key={id++} xlinkHref="#B-black" x={posX - 0.03} y={posY - 0.03} />)
                     } else {
-                        pointList.push(<use key={id++} xlinkHref="#S-black" x={posX + 1 - 0.01} y={posY + 1 - 0.01}/>)
+                        pointList.push(<use key={id++} xlinkHref="#S-black" x={posX + 1 - 0.01} y={posY + 1 - 0.01} />)
                     }
                 } else {
                     if (alignType === Type.None) {
-                        pointList.push(<use key={id++} xlinkHref="#S-white" x={posX + 1} y={posY + 1}/>)
+                        pointList.push(<use key={id++} xlinkHref="#S-white" x={posX + 1} y={posY + 1} />)
                     } else {
-                        pointList.push(<use key={id++} xlinkHref="#B-white" x={posX - 0.03} y={posY - 0.03}/>)
+                        pointList.push(<use key={id++} xlinkHref="#B-white" x={posX - 0.03} y={posY - 0.03} />)
                     }
                 }
-            } else if (typeTable[x][y] == QRPointType.TIMING) {
+            } else if (typeTable[x][y] === QRPointType.TIMING) {
                 if (qrcode.isDark(x, y)) {
                     if (timingType === Type.Bw) {
-                        pointList.push(<use key={id++} xlinkHref="#B-black" x={posX - 0.03} y={posY - 0.03}/>)
+                        pointList.push(<use key={id++} xlinkHref="#B-black" x={posX - 0.03} y={posY - 0.03} />)
                     } else {
-                        pointList.push(<use key={id++} xlinkHref="#S-black" x={posX + 1} y={posY + 1}/>)
+                        pointList.push(<use key={id++} xlinkHref="#S-black" x={posX + 1} y={posY + 1} />)
                     }
                 } else {
                     if (timingType === Type.None) {
-                        pointList.push(<use key={id++} xlinkHref="#S-white" x={posX + 1} y={posY + 1}/>)
+                        pointList.push(<use key={id++} xlinkHref="#S-white" x={posX + 1} y={posY + 1} />)
                     } else {
-                        pointList.push(<use key={id++} xlinkHref="#B-white" x={posX - 0.03} y={posY - 0.03}/>)
+                        pointList.push(<use key={id++} xlinkHref="#B-white" x={posX - 0.03} y={posY - 0.03} />)
                     }
                 }
-            } else if (typeTable[x][y] == QRPointType.POS_CENTER) {
+            } else if (typeTable[x][y] === QRPointType.POS_CENTER) {
                 if (qrcode.isDark(x, y)) {
-                    pointList.push(<use key={id++} fill={posColor} xlinkHref="#B" x={posX - 0.03} y={posY - 0.03}/>)
+                    pointList.push(<use key={id++} fill={posColor} xlinkHref="#B" x={posX - 0.03} y={posY - 0.03} />)
                 }
-            } else if (typeTable[x][y] == QRPointType.POS_OTHER) {
+            } else if (typeTable[x][y] === QRPointType.POS_OTHER) {
                 if (qrcode.isDark(x, y)) {
-                    pointList.push(<use key={id++} fill={posColor} xlinkHref="#B" x={posX - 0.03} y={posY - 0.03}/>)
+                    pointList.push(<use key={id++} fill={posColor} xlinkHref="#B" x={posX - 0.03} y={posY - 0.03} />)
                 } else {
-                    pointList.push(<use key={id++} xlinkHref="#B-white" x={posX - 0.03} y={posY - 0.03}/>)
+                    pointList.push(<use key={id++} xlinkHref="#B-white" x={posX - 0.03} y={posY - 0.03} />)
                 }
             } else {
                 if (qrcode.isDark(x, y)) {
-                    pointList.push(<use key={id++} xlinkHref="#S-black" x={posX + 1} y={posY + 1}/>)
+                    pointList.push(<use key={id++} xlinkHref="#S-black" x={posX + 1} y={posY + 1} />)
                 }
             }
         }
@@ -158,7 +158,7 @@ QRResImage.defaultCSS = {
     }
 }
 
-QRResImage.defaultProps =  {
+QRResImage.defaultProps = {
     image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
     contrast: 0,
     exposure: 0,

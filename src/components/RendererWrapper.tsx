@@ -1,5 +1,5 @@
 import React from 'react';
-import {encodeData} from "../utils/qrcodeHandler";
+import { encodeData } from "../utils/qrcodeHandler";
 import QRCode from "../utils/qrcode";
 import reactCSS from "reactcss";
 import merge from "lodash/merge";
@@ -70,7 +70,7 @@ export function drawIcon({ qrcode, title, titleSize, titleColor, titleAlign, ico
         const titleFontSize = Number(nCount + nCount / 5 * 2) * (titleSize || fontSize || 12) / svgWidth;
         const titleFontColor = titleColor || color || "#000000";
 
-        const fontY = titleVerticalAlign === "middle" 
+        const fontY = titleVerticalAlign === "middle"
             ? (icon ? (iconXY + iconSize) : (nCount / 2 + titleFontSize * .5))
             : Number(nCount + nCount / 5) - titleFontSize * .5;
 

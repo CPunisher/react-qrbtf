@@ -1,7 +1,7 @@
 import React from 'react';
-import {rand, defaultViewBox} from '../utils/helper';
+import { rand, defaultViewBox } from '../utils/helper';
 import { getTypeTable, QRPointType } from '../utils/qrcodeHandler';
-import {RendererWrapper, RendererProps, SFC, drawIcon} from './RendererWrapper';
+import { RendererWrapper, RendererProps, SFC, drawIcon } from './RendererWrapper';
 
 enum Type {
     Rect = 'rect',
@@ -29,7 +29,7 @@ const QRNormal: SFC<QRNormalProps> = (props) => {
     const { qrcode, className, styles } = props;
     return (
         <svg className={className} style={styles.svg} width="100%" height="100%" viewBox={defaultViewBox(qrcode)} fill="white"
-        xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             {listPoints(props)}
             {drawIcon(props)}
         </svg>
@@ -56,25 +56,25 @@ function listPoints({ qrcode, type, size, opacity, posType, otherColor, posColor
 
     for (let x = 0; x < nCount; x++) {
         for (let y = 0; y < nCount; y++) {
-            if (qrcode.isDark(x, y) == false) continue;
+            if (qrcode.isDark(x, y) === false) continue;
 
-            if (typeTable[x][y] == QRPointType.ALIGN_CENTER || typeTable[x][y] == QRPointType.ALIGN_OTHER || typeTable[x][y] == QRPointType.TIMING) {
-                if (type == Type.Rect)
-                    pointList.push(<rect opacity={opacity} width={size} height={size} key={id++} fill={otherColor} x={x + (1 - size)/2} y={y + (1 - size)/2}/>)
-                else if (type == Type.Round)
-                    pointList.push(<circle opacity={opacity} r={size / 2} key={id++} fill={otherColor} cx={x + 0.5} cy={y + 0.5}/>)
-                else if (type == Type.Rand)
+            if (typeTable[x][y] === QRPointType.ALIGN_CENTER || typeTable[x][y] === QRPointType.ALIGN_OTHER || typeTable[x][y] === QRPointType.TIMING) {
+                if (type === Type.Rect)
+                    pointList.push(<rect opacity={opacity} width={size} height={size} key={id++} fill={otherColor} x={x + (1 - size) / 2} y={y + (1 - size) / 2} />)
+                else if (type === Type.Round)
+                    pointList.push(<circle opacity={opacity} r={size / 2} key={id++} fill={otherColor} cx={x + 0.5} cy={y + 0.5} />)
+                else if (type === Type.Rand)
                     pointList.push(<circle key={id++} opacity={opacity} fill={otherColor} cx={x + 0.5} cy={y + 0.5} r={size / 2} />)
             }
-            else if (typeTable[x][y] == QRPointType.POS_CENTER) {
-                if (posType == PosType.Rect) {
-                    pointList.push(<rect width={1} height={1} key={id++} fill={posColor} x={x} y={y}/>);
-                } else if (posType == PosType.Round) {
+            else if (typeTable[x][y] === QRPointType.POS_CENTER) {
+                if (posType === PosType.Rect) {
+                    pointList.push(<rect width={1} height={1} key={id++} fill={posColor} x={x} y={y} />);
+                } else if (posType === PosType.Round) {
                     pointList.push(<circle key={id++} fill={posColor} cx={x + 0.5} cy={y + 0.5} r={1.5} />)
-                    pointList.push(<circle key={id++} fill="none" strokeWidth="1" stroke={posColor}  cx={x + 0.5} cy={y + 0.5} r={3} />)
-                } else if (posType == PosType.Planet) {
+                    pointList.push(<circle key={id++} fill="none" strokeWidth="1" stroke={posColor} cx={x + 0.5} cy={y + 0.5} r={3} />)
+                } else if (posType === PosType.Planet) {
                     pointList.push(<circle key={id++} fill={posColor} cx={x + 0.5} cy={y + 0.5} r={1.5} />)
-                    pointList.push(<circle key={id++} fill="none" strokeWidth="0.15" strokeDasharray="0.5,0.5" stroke={posColor}  cx={x + 0.5} cy={y + 0.5} r={3} />)
+                    pointList.push(<circle key={id++} fill="none" strokeWidth="0.15" strokeDasharray="0.5,0.5" stroke={posColor} cx={x + 0.5} cy={y + 0.5} r={3} />)
                     for (let w = 0; w < vw.length; w++) {
                         pointList.push(<circle key={id++} fill={posColor} cx={x + vw[w] + 0.5} cy={y + 0.5} r={0.5} />)
                     }
@@ -84,20 +84,20 @@ function listPoints({ qrcode, type, size, opacity, posType, otherColor, posColor
                 }
             } else if (posType === PosType.RoundRect) {
                 pointList.push(<circle key={id++} fill={posColor} cx={x + 0.5} cy={y + 0.5} r={1.5} />)
-                pointList.push(<path key={id++} d={sq25} stroke={posColor} strokeWidth={100/6 * (1 - (1 - size) * 0.75)} fill="none" transform={'translate('+String(x - 2.5)+','+String(y - 2.5)+') ' + 'scale(' + String(6/100) + ',' + String(6/100) + ')'} />)
+                pointList.push(<path key={id++} d={sq25} stroke={posColor} strokeWidth={100 / 6 * (1 - (1 - size) * 0.75)} fill="none" transform={'translate(' + String(x - 2.5) + ',' + String(y - 2.5) + ') scale(' + String(6 / 100) + ',' + String(6 / 100) + ')'} />)
             }
-            else if (typeTable[x][y] == QRPointType.POS_OTHER) {
-                if (posType == PosType.Rect) {
-                    pointList.push(<rect width={1} height={1} key={id++} fill={posColor} x={x} y={y}/>);
+            else if (typeTable[x][y] === QRPointType.POS_OTHER) {
+                if (posType === PosType.Rect) {
+                    pointList.push(<rect width={1} height={1} key={id++} fill={posColor} x={x} y={y} />);
                 }
             }
             else {
-                if (type == Type.Rect)
-                    pointList.push(<rect opacity={opacity} width={size} height={size} key={id++} fill={otherColor} x={x + (1 - size)/2} y={y + (1 - size)/2}/>)
-                else if (type == Type.Round)
-                    pointList.push(<circle opacity={opacity} r={size / 2} key={id++} fill={otherColor} cx={x + 0.5} cy={y + 0.5}/>)
-                else if (type == Type.Rand)
-                    pointList.push(<circle opacity={opacity} key={id++} fill={otherColor} cx={x + 0.5} cy={y + 0.5} r={0.5 * rand(0.33,1.0)} />)
+                if (type === Type.Rect)
+                    pointList.push(<rect opacity={opacity} width={size} height={size} key={id++} fill={otherColor} x={x + (1 - size) / 2} y={y + (1 - size) / 2} />)
+                else if (type === Type.Round)
+                    pointList.push(<circle opacity={opacity} r={size / 2} key={id++} fill={otherColor} cx={x + 0.5} cy={y + 0.5} />)
+                else if (type === Type.Rand)
+                    pointList.push(<circle opacity={opacity} key={id++} fill={otherColor} cx={x + 0.5} cy={y + 0.5} r={0.5 * rand(0.33, 1.0)} />)
             }
         }
     }
@@ -110,7 +110,7 @@ QRNormal.defaultCSS = {
     }
 }
 
-QRNormal.defaultProps =  {
+QRNormal.defaultProps = {
     styles: {},
     type: Type.Rect,
     size: 100,
