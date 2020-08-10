@@ -65,8 +65,7 @@ function listPoints({ qrcode, type, size, opacity, posType, otherColor, posColor
                     pointList.push(<circle opacity={opacity} r={size / 2} key={id++} fill={otherColor} cx={x + 0.5} cy={y + 0.5} />)
                 else if (type === Type.Rand)
                     pointList.push(<circle key={id++} opacity={opacity} fill={otherColor} cx={x + 0.5} cy={y + 0.5} r={size / 2} />)
-            }
-            else if (typeTable[x][y] === QRPointType.POS_CENTER) {
+            } else if (typeTable[x][y] === QRPointType.POS_CENTER) {
                 if (posType === PosType.Rect) {
                     pointList.push(<rect width={1} height={1} key={id++} fill={posColor} x={x} y={y} />);
                 } else if (posType === PosType.Round) {
@@ -81,17 +80,15 @@ function listPoints({ qrcode, type, size, opacity, posType, otherColor, posColor
                     for (let h = 0; h < vh.length; h++) {
                         pointList.push(<circle key={id++} fill={posColor} cx={x + 0.5} cy={y + vh[h] + 0.5} r={0.5} />)
                     }
+                } else if (posType === PosType.RoundRect) {
+                    pointList.push(<circle key={id++} fill={posColor} cx={x + 0.5} cy={y + 0.5} r={1.5} />)
+                    pointList.push(<path key={id++} d={sq25} stroke={posColor} strokeWidth={100 / 6 * (1 - (1 - size) * 0.75)} fill="none" transform={'translate(' + String(x - 2.5) + ',' + String(y - 2.5) + ') scale(' + String(6 / 100) + ',' + String(6 / 100) + ')'} />)
                 }
-            } else if (posType === PosType.RoundRect) {
-                pointList.push(<circle key={id++} fill={posColor} cx={x + 0.5} cy={y + 0.5} r={1.5} />)
-                pointList.push(<path key={id++} d={sq25} stroke={posColor} strokeWidth={100 / 6 * (1 - (1 - size) * 0.75)} fill="none" transform={'translate(' + String(x - 2.5) + ',' + String(y - 2.5) + ') scale(' + String(6 / 100) + ',' + String(6 / 100) + ')'} />)
-            }
-            else if (typeTable[x][y] === QRPointType.POS_OTHER) {
+            } else if (typeTable[x][y] === QRPointType.POS_OTHER) {
                 if (posType === PosType.Rect) {
                     pointList.push(<rect width={1} height={1} key={id++} fill={posColor} x={x} y={y} />);
                 }
-            }
-            else {
+            } else {
                 if (type === Type.Rect)
                     pointList.push(<rect opacity={opacity} width={size} height={size} key={id++} fill={otherColor} x={x + (1 - size) / 2} y={y + (1 - size) / 2} />)
                 else if (type === Type.Round)
