@@ -21,7 +21,6 @@
     "react": "^16.13.1",
     "react-css": "0.0.2",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
     "reactcss": "^1.2.3"
   },
   "scripts": {
@@ -55,6 +54,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^3.0.0",
     "prop-types": "^15.7.2",
+    "react-scripts": "3.4.1",
     "shx": "^0.3.2",
     "typescript": "^3.9.5",
     "uglifyjs-webpack-plugin": "^2.2.0",
