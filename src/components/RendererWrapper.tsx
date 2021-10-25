@@ -58,11 +58,11 @@ export function drawIcon({ qrcode, title, titleSize, titleColor, titleAlign, ico
 
     const pointList = [];
     if (icon || titleVerticalAlign === "middle") {
-        pointList.push(<rect width={iconSize} height={iconSize} rx="2" ry="2" fill="#FFFFFF" x={iconXY} y={iconXY} />);
+        pointList.push(<rect key={1} width={iconSize} height={iconSize} rx="2" ry="2" fill="#FFFFFF" x={iconXY} y={iconXY} />);
     }
 
     if (icon) {
-        pointList.push(<image xlinkHref={icon} width={iconSize - 2} x={iconXY + 1} y={iconXY + 1} />);
+        pointList.push(<image key={2} xlinkHref={icon} width={iconSize - 2} x={iconXY + 1} y={iconXY + 1} />);
     }
 
     if (title) {
@@ -74,7 +74,7 @@ export function drawIcon({ qrcode, title, titleSize, titleColor, titleAlign, ico
             ? (icon ? (iconXY + iconSize) : (nCount / 2 + titleFontSize * .5))
             : Number(nCount + nCount / 5) - titleFontSize * .5;
 
-        pointList.push(<text x={nCount / 2} y={fontY} fill={titleFontColor} style={{ ...titleStyle, fontSize: titleFontSize }} textAnchor="middle">{title}</text>)
+        pointList.push(<text key={3} x={nCount / 2} y={fontY} fill={titleFontColor} style={{ ...titleStyle, fontSize: titleFontSize }} textAnchor="middle">{title}</text>)
     }
 
     return pointList;
